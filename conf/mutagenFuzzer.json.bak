@@ -1,0 +1,42 @@
+{
+  "name": "MutagenFuzzer",
+  "type": "mozCingi.fuzzers.mutagen.mutagenFuzzer.MutagenFuzzer",
+  "generator":{
+    "class_name":"mozCingi.fuzzers.mutagen.mutagenGenerator.MutagenGenerator",
+    "gen_num":1,
+    "conf":{
+      "audio_files_folder_name":"audiofiles",
+      "test_cases_folder_name":"testcases",
+      "black_list_file_name":"black.list",
+      "data_gen_num": 2
+    }
+  },
+  "executor":{
+    "class_name":"mozCingi.fuzzers.mutagen.mutagenExecutor.MutagenExecutor",
+    "gen_num":1,
+    "conf":{
+      "desc": "Mutagen Executor"
+    }
+  },
+  "parser":{
+    "class_name":"mozCingi.fuzzers.mutagen.mutagenParser.MutagenParser",
+    "gen_num":1,
+    "conf":{
+      "desc": "Mutagen Parser"
+    }
+  },
+  "collector":{
+    "class_name":"mozCingi.fuzzers.mutagen.mutagenCollector.MutagenCollector",
+    "gen_num":1,
+    "conf":{
+      "collector_svr_addr": "10.247.28.25",
+      "collector_svr_port": "8000",
+      "collector_svr_proto": "http",
+      "collector_tool": "copypaste",
+      "collector_client_id": "admin",
+      "collector_token_path": "./data/token"
+    }
+  }
+
+}
+
