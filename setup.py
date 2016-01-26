@@ -2,14 +2,16 @@
 # -*- coding:utf-8 -*-
 
 # from distutils.sysconfig import get_python_lib
+import os
 from setuptools import setup, find_packages
 
 # dependencies
 with open('requirements.txt') as f:
     deps = f.read().splitlines()
 
-#with open('./FuzzManager_requirements.txt') as b:
-#    deps.extend(b.read().splitlines())
+if os.path.exists('./FuzzManager_requirements.txt'):
+    with open('./FuzzManager_requirements.txt') as b:
+        deps.extend(b.read().splitlines())
 
 
 version = "0.1.0"

@@ -1,9 +1,8 @@
 __author__ = 'shako'
 import os
-import random
 import zipfile
-from mutagen.mp3 import MP3
 from mozCingi.steps.generator import AbsGenerator
+from mozCingi.util.mutagenWrapper import MutagenWrapper
 
 
 class MutagenGenerator(AbsGenerator):
@@ -21,8 +20,8 @@ class MutagenGenerator(AbsGenerator):
     output_audio_file_path_list = []
 
     def generate_data(self):
-        self.data_folder_name = os.path.join(self.DEFAULT_ROOT_DATA_DIR, self.__class__.__name__)
-        self.output_folder_name = os.path.join(self.DEFAULT_ROOT_OUTPUT_DIR, self.__class__.__name__)
+        self.data_folder_name = os.path.join(self.DEFAULT_ROOT_DATA_DIR, self.fuzzer_name)
+        self.output_folder_name = os.path.join(self.DEFAULT_ROOT_OUTPUT_DIR, self.fuzzer_name)
         if os.path.exists(self.output_folder_name) is False:
             os.mkdir(self.output_folder_name)
 
@@ -31,26 +30,9 @@ class MutagenGenerator(AbsGenerator):
         if os.path.exists(audio_files_dst_folder_path) is False:
             os.mkdir(audio_files_dst_folder_path)
 
-        for audio_file_name in os.listdir(audio_files_src_folder_path):
-            audio_file_path = os.path.join(audio_files_src_folder_path, audio_file_name)
-            for new_file_no in xrange(1, self.configurations['data_gen_num']):
-                [base_name, ext_name] = audio_file_name.split(".")
-                new_file_path = os.path.join(audio_files_dst_folder_path,
-                                             base_name + "_" + str(new_file_no) + "." + ext_name)
-                try:
-                    obj_mp3 = MP3(audio_file_path)
-                    if "TIT1" in obj_mp3:
-                        obj_mp3['TIT1'].text = self.generate_random_unistr()
-                    else:
-                        obj_mp3['TIT2'].text = self.generate_random_unistr()
-                    try:
-                        obj_mp3.save(new_file_path)
-                        self.output_audio_file_path_list.append(new_file_path)
-                    except:
-                        pass
-
-                except:
-                    pass
+        mutagen_obj = MutagenWrapper()
+        mutagen_obj.mutate_audio_file_header(audio_files_src_folder_path, audio_files_dst_folder_path,
+                                             self.configurations['data_gen_num'])
 
     def generate_steps(self):
         test_cases_src_folder_path = os.path.join(self.data_folder_name, self.configurations['test_cases_folder_name'])
@@ -75,13 +57,12 @@ class MutagenGenerator(AbsGenerator):
 
     def generate_execution_file(self):
         self.generate_testvars()
-        execution_log_dir = os.path.join(self.DEFAULT_ROOT_LOG_DIR, self.__class__.__name__)
+        execution_log_dir = os.path.join(self.DEFAULT_ROOT_LOG_DIR, self.fuzzer_name)
         execution_log_path = os.path.join(execution_log_dir, self.DEFAULT_EXEC_LOG_NAME)
         execution_target = "127.0.0.1:2828"
-        execution_dst_name = os.path.join(self.output_folder_name, self.configurations['test_cases_folder_name'])
         for index in xrange(0, len(self.DEFAULT_EXEC_CMD)):
             if "%s" in self.DEFAULT_EXEC_CMD[index]:
-                self.DEFAULT_EXEC_CMD[index] = self.DEFAULT_EXEC_CMD[index] % (execution_dst_name,
+                self.DEFAULT_EXEC_CMD[index] = self.DEFAULT_EXEC_CMD[index] % (self.configurations['test_cases_folder_name'],
                                                                                execution_target,
                                                                                self.DEFAULT_TESTVARS_FILE_NAME,
                                                                                execution_log_path)
@@ -117,13 +98,10 @@ class MutagenGenerator(AbsGenerator):
         with open(input_file_path) as f:
             return f.readlines()
 
-    def generate_random_unistr(self):
-        return "".join([unichr(random.randint(1, 1114111)) for n in xrange(0, self.DEFAULT_MP3_TITLE_LENGTH)])
-
     def pack_files(self):
         if os.path.exists(self.DEFAULT_ROOT_TMP_DIR) is False:
             os.mkdir(self.DEFAULT_ROOT_TMP_DIR)
-        zip_file_name = self.name + ".zip"
+        zip_file_name = self.fuzzer_name + "_" + str(self.obj_index) + ".zip"
         zip_file_path = os.path.join(self.DEFAULT_ROOT_TMP_DIR, zip_file_name)
         zip_file_obj = zipfile.ZipFile(zip_file_path, "w")
         try:

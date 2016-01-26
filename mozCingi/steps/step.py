@@ -1,4 +1,5 @@
 __author__ = 'shako'
+import os
 class AbsStep(object):
 
     DEFAULT_ROOT_DATA_DIR = "data"
@@ -11,6 +12,7 @@ class AbsStep(object):
 
     def __init__(self, name, fuzzer_name, obj_index, **parameters):
         self.name = name
+        self.working_dir = os.getcwd()
         self.fuzzer_name = fuzzer_name
         self.obj_index = obj_index
         self.read_configuration(**parameters)
