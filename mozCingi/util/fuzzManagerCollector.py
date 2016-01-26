@@ -14,7 +14,7 @@ class FuzzManagerCollector(object):
 
     def execute_cmd(self, input_stdout_log_path, input_stderr_log_path, collector_svr_addr, collector_svr_port,
                     collector_svr_proto, collector_tool, collector_client_id, collector_token_path):
-        cmd_str = "python lib/FuzzManager/Collector/Collector.py --submit --product mozilla-central --platform x86-64 --os linux " \
+        cmd_str = "python lib/FuzzManager/Collector.py --submit --product mozilla-central --platform x86-64 --os linux " \
                   "--stdout %s --stderr %s --serverhost %s --serverport %s --serverproto %s --tool %s " \
                   "--clientid %s --serverauthtokenfile %s" % (input_stdout_log_path, input_stderr_log_path,
                                                               collector_svr_addr, collector_svr_port,
