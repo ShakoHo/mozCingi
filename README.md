@@ -10,5 +10,7 @@ How to install:
 
 how to execute:
 
+  - rename conf/sampleFuzzer.json.bak to conf/sampleFuzzer.json
   - switch to virtual environment you created (source ./env/bin/activate)
   - give cmd: cingi --dirpath conf
+  - this is a sample fuzzer, it will print all variables in configuration

@@ -5,9 +5,9 @@ mutagen-install: venv-install fuzzmanager-install mozitp-install lib-install
 install: venv-install lib-install
 
 venv-install:
-	ifndef VIRTUAL_ENV
-		virtualenv env
-	endif
+ifndef VIRTUAL_ENV
+	virtualenv env
+endif
 
 lib-install:
 	. env/bin/activate; \
