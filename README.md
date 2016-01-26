@@ -1,14 +1,14 @@
 # mozCingi
 Fuzzy Testing for B2G
 
-Cingi: vocabulary from Yami, which means spy on sth.
+Cingi: vocabulary from Taiwan aboriginal "Yami", which means spy on sth.
 
-Install:
+How to install:
 
-  - create a python virtual environment
-  - give cmd: python setup.py install
+  - basic installation: make install
+  - mutagen fuzzer installation: make mutagen-install
 
-Execute:
+how to execute:
 
-  - switch to virtual environment you created
+  - switch to virtual environment you created (source ./env/bin/activate)
   - give cmd: cingi --dirpath conf
