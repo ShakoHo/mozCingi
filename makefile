@@ -15,7 +15,7 @@ lib-install:
 
 fuzzmanager-install:
 	@git clone https://github.com/MozillaSecurity/FuzzManager;
-	cp -Rf FuzzManager/Collector lib/FuzzManager;
+	cp -Rf FuzzManager/Collector lib/FuzzManager/Collector;
 	cp -Rf FuzzManager/FTB lib/FuzzManager;
 	cp FuzzManager/requirements.txt FuzzManager_requirements.txt
 	touch FuzzManager/__init__.py
