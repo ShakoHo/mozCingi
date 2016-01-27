@@ -9,6 +9,7 @@ ifndef VIRTUAL_ENV
 	virtualenv env
 endif
 
+
 lib-install:
 	. env/bin/activate; \
 	python setup.py install;
@@ -25,6 +26,11 @@ mozitp-install:
 	cd lib;\
 	git clone https://github.com/Mozilla-TWQA/MozITP;
 
-clean:
-	rm -rf env
+clean-data:
+	rm -rf tmp/*;
+	rm -rf output/*;
+
+clean: clean-data
+	rm -rf env;
+
 

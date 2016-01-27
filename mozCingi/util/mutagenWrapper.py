@@ -10,9 +10,9 @@ class MutagenWrapper(object):
 
     data_folder_name = ""
     output_folder_name = ""
-    output_audio_file_path_list = []
 
     def mutate_audio_file_header(self, src_data_dir_path, dst_data_dir_path, mutate_gen_num):
+        output_audio_file_path_list = []
 
         for audio_file_name in os.listdir(src_data_dir_path):
             audio_file_path = os.path.join(src_data_dir_path, audio_file_name)
@@ -28,12 +28,14 @@ class MutagenWrapper(object):
                         obj_mp3['TIT2'].text = self.generate_random_unistr()
                     try:
                         obj_mp3.save(new_file_path)
-                        self.output_audio_file_path_list.append(new_file_path)
+                        output_audio_file_path_list.append(new_file_path)
                     except:
                         pass
 
                 except:
                     pass
+
+        return output_audio_file_path_list
 
     def generate_random_unistr(self):
         return "".join([unichr(random.randint(1, 1114111)) for n in xrange(0, self.DEFAULT_MP3_TITLE_LENGTH)])

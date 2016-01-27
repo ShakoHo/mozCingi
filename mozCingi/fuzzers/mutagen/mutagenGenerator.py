@@ -31,14 +31,14 @@ class MutagenGenerator(AbsGenerator):
             os.mkdir(audio_files_dst_folder_path)
 
         mutagen_obj = MutagenWrapper()
-        mutagen_obj.mutate_audio_file_header(audio_files_src_folder_path, audio_files_dst_folder_path,
-                                             self.configurations['data_gen_num'])
+        self.output_audio_file_path_list = mutagen_obj.mutate_audio_file_header(audio_files_src_folder_path,
+                                                                                audio_files_dst_folder_path,
+                                                                                self.configurations['data_gen_num'])
 
     def generate_steps(self):
         test_cases_src_folder_path = os.path.join(self.data_folder_name, self.configurations['test_cases_folder_name'])
         test_cases_dst_folder_path = os.path.join(self.output_folder_name, self.configurations['test_cases_folder_name'])
         black_list_file_path = os.path.join(self.data_folder_name, self.configurations['black_list_file_name'])
-
         test_case_black_list = self.read_black_list(black_list_file_path)
         if os.path.exists(test_cases_dst_folder_path) is False:
             os.mkdir(test_cases_dst_folder_path)
@@ -57,8 +57,7 @@ class MutagenGenerator(AbsGenerator):
 
     def generate_execution_file(self):
         self.generate_testvars()
-        execution_log_dir = os.path.join(self.DEFAULT_ROOT_LOG_DIR, self.fuzzer_name)
-        execution_log_path = os.path.join(execution_log_dir, self.DEFAULT_EXEC_LOG_NAME)
+        execution_log_path = self.DEFAULT_EXEC_LOG_NAME
         execution_target = "127.0.0.1:2828"
         for index in xrange(0, len(self.DEFAULT_EXEC_CMD)):
             if "%s" in self.DEFAULT_EXEC_CMD[index]:
