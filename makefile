@@ -16,10 +16,14 @@ lib-install:
 
 fuzzmanager-install:
 	@git clone https://github.com/MozillaSecurity/FuzzManager;
-	cp -Rf FuzzManager/Collector lib/FuzzManager;
+	mkdir lib/FuzzManager;
+	cp -Rf FuzzManager/Collector/* lib/FuzzManager;
 	cp -Rf FuzzManager/FTB lib/FuzzManager;
-	cp FuzzManager/requirements.txt FuzzManager_requirements.txt
-	touch FuzzManager/__init__.py
+	cp FuzzManager/requirements.txt FuzzManager_requirements.txt;
+	touch FuzzManager/__init__.py;
+	cd lib/FuzzManager;\
+	find ./ -type f -exec sed -i -e 's/from FTB/from lib.FuzzManager.FTB/g' {} \;
+	find ./ -type f -exec sed -i -e 's/import lib.FuzzManager.FTB/import lib.FuzzManager.FTB/g' {} \;
 	rm -rf FuzzManager	
 
 mozitp-install:

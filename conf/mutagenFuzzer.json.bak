@@ -34,7 +34,10 @@
       "collector_svr_proto": "http",
       "collector_tool": "copypaste",
       "collector_client_id": "admin",
-      "collector_token_path": "./data/token"
+      "collector_token_path": "./data/token",
+      "product": "mozilla-central",
+      "platform": "x86-64",
+      "os": "linux"
     }
   }
 
