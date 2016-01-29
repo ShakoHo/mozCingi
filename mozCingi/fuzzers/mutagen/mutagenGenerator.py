@@ -9,7 +9,6 @@ class MutagenGenerator(AbsGenerator):
 
     DEFAULT_MP3_TITLE_LENGTH = 30
     DEFAULT_TESTVARS_FILE_NAME = "testvars.json"
-    DEFAULT_LAUNCH_SCRIPT_FILE_NAME = "launch.sh"
     DEFAULT_EXEC_LOG_NAME = "exec.log"
     DEFAULT_EXEC_CMD = ["adb logcat 2>&1 > logcat.log & \n",
                         "gaiatest %s --address %s --testvars %s 2>&1|tee %s \n",

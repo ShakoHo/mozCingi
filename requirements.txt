@@ -4,3 +4,5 @@ watchdog==0.8.3
 mutagen==1.31
 gevent==1.0.2
 greenlet==0.4.9
+b2g_util>=0.0.17
+gaiatest-v2.5==0.1

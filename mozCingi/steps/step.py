@@ -7,6 +7,7 @@ class AbsStep(object):
     DEFAULT_ROOT_LOG_DIR = "log"
     DEFAULT_ROOT_TMP_DIR = "tmp"
     DEFAULT_ROOT_LIB_DIR = "lib"
+    DEFAULT_LAUNCH_SCRIPT_FILE_NAME = "launch.sh"
 
     configurations = {}
 
