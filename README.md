@@ -1,6 +1,8 @@
 # mozCingi
 Fuzzy Testing for B2G
 
+you can also reference the wiki page here: https://wiki.mozilla.org/B2G/QA/Test_Automation/mozcingi
+
 Cingi: vocabulary from Taiwan aboriginal "Yami", which means spy on sth.
 
 How to install:
